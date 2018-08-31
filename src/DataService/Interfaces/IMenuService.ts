@@ -1,4 +1,4 @@
-export interface MenuServiceInterface {
+export interface IMenuService {
 
-    getMenuItems() : any
+    getMenuItems(title:string) : any
 }
