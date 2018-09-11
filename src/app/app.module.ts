@@ -6,7 +6,9 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ProductsPage } from '../pages/Products/products';
-
+import {AddProductsPage} from '../pages/AddProducts/AddProducts';
+import {NextVisitPage} from '../pages/NextVisit/NextVisit';
+import {DeleteModalPage} from '../pages/Modals/DeleteModal';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {MenuService} from '../DataService/MenuService';
@@ -18,7 +20,10 @@ import {HttpModule} from '../../node_modules/@angular/http';
     MyApp,
     HomePage,
     ListPage,
-    ProductsPage
+    ProductsPage,
+    AddProductsPage,
+    NextVisitPage,
+    DeleteModalPage
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,10 @@ import {HttpModule} from '../../node_modules/@angular/http';
     MyApp,
     HomePage,
     ListPage,
-    ProductsPage
+    ProductsPage,
+    AddProductsPage,
+    NextVisitPage,
+    DeleteModalPage
   ],
   providers: [
     StatusBar,

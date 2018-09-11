@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>testing</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-list   *ngFor="let p of products">
+      <ion-item>
+          <ion-icon item-right name="trash" [attr.data-usid]="p.userId" (click)="DeleteItem(p)"></ion-icon>
+      <ion-label class="product-label">{{p.productName}} </ion-label>
+        </ion-item>
+    </ion-list>
+  </ion-content>
+  

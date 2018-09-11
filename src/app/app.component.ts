@@ -7,6 +7,8 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ProductsPage } from '../pages/Products/products';
 import {MenuService} from '../DataService/MenuService';
+import {AddProductsPage} from '../pages/AddProducts/AddProducts';
+import {NextVisitPage} from '../pages/NextVisit/NextVisit';
 
 
 @Component({
@@ -17,15 +19,15 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, value: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private _menuService: MenuService ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Products', component: ProductsPage }
+      { title: 'Home', component: HomePage, value:'Home' },
+      { title: 'Products', component: ProductsPage, value:'Products' }     
     ];
 
   }
@@ -43,39 +45,55 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
    console.log(page.title);
-   var title = page.title;
+   var title = page.value;
    switch(title){
     case 'Home': {
       this.pages = [
-       { title: 'Home', component: HomePage },
-       { title: 'Products', component: ListPage }
-     ];
-     break;
-    }
-    case 'List': {
-      this.pages = [
-       { title: 'efgh', component: HomePage },
-       { title: 'list', component: ListPage }
+       { title: 'Home', component: HomePage ,value:'Home' },
+       { title: 'Products', component: ProductsPage, value:'Products' }
      ];
      break;
     }
     case 'Products': {
       this.pages = [
-       { title: 'Next Visit', component: HomePage },
-       { title: 'Regular List', component: ListPage },
-       { title: 'Add Products', component: ListPage }
+        { title: 'Next Visit', component: NextVisitPage, value:'NextVisit' },
+        { title: 'Regular List', component: ProductsPage, value:'RegularVisit'},
+        { title: 'Add Products', component: AddProductsPage, value:'Addproducts' }
      ];
      break;
     }
+    case 'Addproducts': {
+       this.pages = [
+        { title: 'Next Visit', component: NextVisitPage, value:'NextVisit' },
+        { title: 'Regular List', component: ProductsPage, value:'RegularVisit'},
+        { title: 'Add Products', component: AddProductsPage, value:'Addproducts' }
+       ];
+       break;
+    }
+    case 'RegularVisit': {
+      this.pages = [
+       { title: 'Next Visit', component: NextVisitPage, value:'NextVisit' },
+       { title: 'Regular List', component: ProductsPage, value:'RegularVisit'},
+       { title: 'Add Products', component: AddProductsPage, value:'Addproducts' }
+      ];
+      break;
+   }
+   case 'NextVisit': {
+    this.pages = [
+     { title: 'Next Visit', component: NextVisitPage, value:'NextVisit' },
+     { title: 'Regular List', component: ProductsPage, value:'RegularVisit'},
+     { title: 'Add Products', component: AddProductsPage, value:'Addproducts' }
+    ];
+    break;
+ }
     default:{
       this.pages = [
-       { title: 'abcd', component: HomePage },
-       { title: 'list', component: ListPage }
+        { title: 'Home', component: HomePage ,value:'Home' },
+        { title: 'Products', component: ProductsPage, value:'Products' }
      ];
      break;
     }
    }
     this.nav.setRoot(page.component);
-   // this._menuService.getMenuItems();
   }
 }
