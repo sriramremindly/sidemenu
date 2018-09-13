@@ -9,7 +9,7 @@ import {ProductService} from '../../DataService/ProductService';
 @Component({
   selector: 'delete-modal',
   templateUrl: 'DeleteModal.html',
-  styleUrls:['/pages/Modals/DeleteModal.ts']
+  styleUrls:['DeleteModal.scss']
 })
 export class DeleteModalPage {
   rootPage: any = ListPage;

@@ -11,7 +11,7 @@ import {Product} from '../../DataModels/Products';
 @Component({
   selector: 'page-NextVisit',
   templateUrl: 'NextVisit.html',
-  styleUrls:['/pages/NextVisit/NextVisit.scss']
+  styleUrls:['NextVisit.scss']
 })
 export class NextVisitPage  implements OnInit{
   rootPage: any = ListPage;

@@ -10,7 +10,7 @@ import {Product} from '../../DataModels/Products';
 @Component({
   selector: 'page-AddProducts',
   templateUrl: 'AddProducts.html',
-  styleUrls:['/pages/AddProducts/Addproducts.scss']
+  styleUrls:['Addproducts.scss']
 })
 export class AddProductsPage  implements OnInit{
   rootPage: any = ListPage;

@@ -11,7 +11,7 @@ import {Product} from '../../DataModels/Products';
 @Component({
   selector: 'page-products',
   templateUrl: 'products.html',
-  styleUrls:['/pages/Products/products.scss']
+  styleUrls:['products.scss']
 })
 export class ProductsPage  implements OnInit{
   rootPage: any = ListPage;
