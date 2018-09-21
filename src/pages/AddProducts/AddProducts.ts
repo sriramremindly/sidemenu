@@ -10,7 +10,7 @@ import {Product} from '../../DataModels/Products';
 @Component({
   selector: 'page-AddProducts',
   templateUrl: 'AddProducts.html',
-  styleUrls:['Addproducts.scss']
+  styleUrls:['/pages/AddProduct/Addproducts.scss']
 })
 export class AddProductsPage  implements OnInit{
   rootPage: any = ListPage;
@@ -38,7 +38,7 @@ export class AddProductsPage  implements OnInit{
   let prod = new Product();
   prod.productName = this.productName;
   prod.nextVisit = '0';
-    this.productService.addProduct(prod).subscribe((value)=>{         
+    this.productService.addProductapi(prod).subscribe((value)=>{         
       let obj = JSON.parse(value._body);
       this.submitMsg = "Product has been added successfully";
     },

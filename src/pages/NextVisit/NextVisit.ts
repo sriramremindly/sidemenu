@@ -11,7 +11,7 @@ import {Product} from '../../DataModels/Products';
 @Component({
   selector: 'page-NextVisit',
   templateUrl: 'NextVisit.html',
-  styleUrls:['NextVisit.scss']
+  styleUrls:['/pages/NextVisit/NextVisit.scss']
 })
 export class NextVisitPage  implements OnInit{
   rootPage: any = ListPage;
@@ -23,12 +23,13 @@ export class NextVisitPage  implements OnInit{
 
   public ngOnInit()
   {
-    this.productService.getProductsList().subscribe((value) =>{
-      let obj = JSON.parse(value._body);
+    this.productService.getProductsListapi().subscribe((value) =>{
+      let data = JSON.parse(value._body);
+      let obj = data.message;
        this.products = obj.filter(val => {
           var nextvisit = val.nextVisit== 1 ? true: false;
           if(nextvisit)
-            return {productName:val.productName,nextVisit:nextvisit,userId:val._id.$oid}; 
+            return {productName:val.productName,nextVisit:nextvisit,userId:val._id}; 
         })
       })  
   }
@@ -39,7 +40,7 @@ export class NextVisitPage  implements OnInit{
    var prodIndex = this.products.indexOf(product);
           
     let productToUpdate = {productName : product.productName, nextVisit : false, userId:userid};
-    this.productService.updateProduct(productToUpdate).subscribe((val)=> {
+    this.productService.updateProductapi(productToUpdate).subscribe((val)=> {
    if (prodIndex >-1)
       this.products.splice(prodIndex,1); 
     },

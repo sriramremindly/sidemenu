@@ -11,7 +11,7 @@ import {Product} from '../../DataModels/Products';
 @Component({
   selector: 'page-products',
   templateUrl: 'products.html',
-  styleUrls:['products.scss']
+  styleUrls:['/pages/Products/products.scss']
 })
 export class ProductsPage  implements OnInit{
   rootPage: any = ListPage;
@@ -25,17 +25,18 @@ export class ProductsPage  implements OnInit{
 
   public ngOnInit()
   {
-    this.productService.getProductsList().subscribe((value) =>{
-      let obj = JSON.parse(value._body);
+    this.productService.getProductsListapi().subscribe((value) =>{
+      let data = JSON.parse(value._body);
+      let obj = data.message;
        this.products = obj.map(val => {
           var nextvisit = val.nextVisit== 1 ? true: false;
-            return {productName:val.productName,nextVisit:nextvisit,userId:val._id.$oid}; 
+            return {productName:val.productName,nextVisit:nextvisit,userId:val._id}; 
         })
       })  
   }
 
   public updateItem(product:Product) { 
-  this.productService.updateProduct(product).subscribe((value)=> { 
+  this.productService.updateProductapi(product).subscribe((value)=> { 
   if(product.nextVisit)
   {
     this.updateMsg = "Product has been added to next visit succesfully";
@@ -62,7 +63,7 @@ err => {
  {
   var userid = product.userId;
   var prodIndex = this.products.indexOf(product);
-  this.productService.deleteProduct(userid).subscribe((val)=> {
+  this.productService.deleteProductapi(userid).subscribe((val)=> {
     if (prodIndex >-1)
     this.products.splice(prodIndex,1); 
   },

@@ -1,0 +1,30 @@
+<ion-content>
+    <form [formGroup]="login_Form" (ngSubmit)="onSubmit(login_Form.value)" >
+    <div padding> 
+        <ion-row>
+            <ion-col>
+                <ion-list inset>
+                    <ion-item>
+                            <ion-label>Username</ion-label>
+                            <ion-input type="text" formControlName="userName"> </ion-input>
+                    </ion-item>
+                    <ion-item>
+                            <ion-label>Password</ion-label>
+                            <ion-input type="password" formControlName="Password"> </ion-input>
+                        </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <button ion-button class="login-button" type="submit">Login</button>
+            </ion-col>
+            <ion-col>
+                    <button ion-button class="login-button" (click)="SignUP()">SignUp</button>
+                </ion-col>
+        </ion-row>
+        <ion-label >Invalid UserName or Password</ion-label>
+    </div>
+    </form>
+</ion-content>
+

@@ -9,11 +9,17 @@ import { ProductsPage } from '../pages/Products/products';
 import {AddProductsPage} from '../pages/AddProducts/AddProducts';
 import {NextVisitPage} from '../pages/NextVisit/NextVisit';
 import {DeleteModalPage} from '../pages/Modals/DeleteModal';
+import {LoginPage} from '../pages/Login/LoginPage';
+import {SignUpPage} from '../pages/SignUp/SignUpPage';
+import {SplashPage} from '../pages/Splash/SplashPage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {MenuService} from '../DataService/MenuService';
 import {ProductService} from '../DataService/ProductService';
+import {UserService} from '../DataService/UsersService';
 import {HttpModule} from '../../node_modules/@angular/http';
+import {AuthService} from '../DataService/AuthService';
+import {Storage, IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -23,12 +29,16 @@ import {HttpModule} from '../../node_modules/@angular/http';
     ProductsPage,
     AddProductsPage,
     NextVisitPage,
-    DeleteModalPage
+    DeleteModalPage,
+    LoginPage,
+    SignUpPage,
+    SplashPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,14 +48,19 @@ import {HttpModule} from '../../node_modules/@angular/http';
     ProductsPage,
     AddProductsPage,
     NextVisitPage,
-    DeleteModalPage
+    DeleteModalPage,
+    LoginPage,
+    SignUpPage,
+    SplashPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: MenuService, useClass: MenuService},
-    {provide:ProductService,useClass:ProductService}
+    {provide:ProductService,useClass:ProductService},
+    {provide:UserService,useClass:UserService},
+    {provide:AuthService,useClass:AuthService}
   ]
 })
 export class AppModule {}

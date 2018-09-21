@@ -9,7 +9,7 @@ import {ProductService} from '../../DataService/ProductService';
 @Component({
   selector: 'delete-modal',
   templateUrl: 'DeleteModal.html',
-  styleUrls:['DeleteModal.scss']
+  styleUrls:['/pages/DeleteModal/DeleteModal.scss']
 })
 export class DeleteModalPage {
   rootPage: any = ListPage;
@@ -25,7 +25,7 @@ export class DeleteModalPage {
   public DeleteItem(product : any)
   {
     var userId = this.userId;
-    this.productService.deleteProduct(userId).subscribe((val)=> {
+    this.productService.deleteProductapi(userId).subscribe((val)=> {
  
     },
    err => {

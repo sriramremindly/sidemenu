@@ -1,0 +1,34 @@
+<ion-content>
+    <form [formGroup]="validation_Form" (ngSubmit)="onSubmit(validation_Form.value)">
+    <div padding> 
+        <ion-row>
+            <ion-col>
+                <ion-list inset>
+                    <ion-item>
+                            <ion-label >FirstName</ion-label>
+                            <ion-input type="text" formControlName="firstName"> </ion-input>
+                    </ion-item>
+                    <ion-item>
+                            <ion-label>LastName</ion-label>
+                            <ion-input type="text" formControlName="lastName"> </ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label >EmailId</ion-label>
+                            <ion-input type="text" formControlName="emailId"> </ion-input>
+                    </ion-item>
+                    <ion-item>
+                            <ion-label >Password</ion-label>
+                            <ion-input type="password" formControlName="passWord"> </ion-input>
+                        </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <button ion-button class="login-button" type="submit">Register</button>
+            </ion-col>
+        </ion-row>
+    </div>
+    </form>
+</ion-content>
+
