@@ -1,3 +1,6 @@
+
+
 export const environment = {
-    restApiUrl:'http://localhost:3000/'
+    production:false,
+    dataApiUrl:'https://remindly.herokuapp.com/'
 }

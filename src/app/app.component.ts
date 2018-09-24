@@ -12,15 +12,15 @@ import { AddProductsPage } from '../pages/AddProducts/AddProducts';
 import { NextVisitPage } from '../pages/NextVisit/NextVisit';
 import { AuthService } from '../DataService/AuthService';
 import {SplashPage} from '../pages/Splash/SplashPage';
-
+import {Groupspage} from '../pages/Groups/GroupsPage';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = HomePage;
-  //rootPage: any = LoginPage;
+  //rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
   pages: Array<{ title: string, component: any, value: string }>;
 
@@ -42,7 +42,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage, value: 'Home' },
-      {title:'Groups', component:GroupPage, value: 'Groups'},
+      {title:'Groups', component:Groupspage, value: 'Groups'},
       { title: 'Products', component: ProductsPage, value: 'Products' }
     ];
 
@@ -77,6 +77,14 @@ export class MyApp {
           { title: 'Add Products', component: AddProductsPage, value: 'Addproducts' }
         ];
         break;
+      }
+      case 'Groups': {
+         this.pages = [
+          { title: 'Home', component: NextVisitPage, value: 'NextVisit' },
+          { title: 'Groups', component: ProductsPage, value: 'RegularVisit' },
+          { title: 'Group Products', component: AddProductsPage, value: 'Addproducts' }
+         ];
+         break;
       }
       case 'Addproducts': {
         this.pages = [

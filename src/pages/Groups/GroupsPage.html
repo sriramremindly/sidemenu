@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>testing</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+    <ion-list   *ngFor="let g of groups">
+      <ion-item>
+      <ion-label class="group-label" (click)="displayGroupDetails(g)" [attr.data-usid]="g.userId">{{g.groupName}} </ion-label>
+    </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label>{{updateMsg}} </ion-label>
+    </ion-item>
+  </ion-content>
+  

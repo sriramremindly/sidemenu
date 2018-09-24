@@ -1,30 +1,33 @@
-import { Injectable, EventEmitter } from '../../node_modules/@angular/core';
+import { Injectable, Inject,InjectionToken } from '../../node_modules/@angular/core';
 import { Http, HttpModule, RequestOptions, Headers } from '../../node_modules/@angular/http';
 import { HttpHeaders, HttpResponse } from '../../node_modules/@angular/common/http';
+import {environment} from '../environment/environment';
 import { Observable } from 'rxjs/Observable';
 import { LoginDetails } from '../DataModels/LoginDetails';
 import {Storage} from '@ionic/storage';
+const MAP_SERVICE_BASE_URL = new InjectionToken<string>('MapServiceBaseUrl');
 
 @Injectable()
-export class AuthService {
+ class AuthService {
     server: Http;
     loginDetails: LoginDetails;
      inValid = "Invalid UserName or Password";
      valid = "validUser";
 
-    constructor(private http: Http, public storage: Storage) {
+    constructor(public http: Http,   @Inject(MAP_SERVICE_BASE_URL)
+        public MapServiceBaseUrl: string) {
         this.server = http;
     }
 
     storeUserDetails(value : any){
-        var user = JSON.parse(value._body).message;
-        this.storage.set("isLoggedin", true);
-        this.storage.set("userName",user[0].email);
+      var user = JSON.parse(value._body).message;
+        //this.storage.set("isLoggedin", true);
+        //this.storage.set("userName",user[0].email);
     }
 
     getUserDetails() 
     {
-        return this.storage.get("userName");
+       // return this.storage.get("userName");
     }
 
     validateUser(value: any): boolean {
@@ -42,10 +45,11 @@ export class AuthService {
 
     authenticateUser(login: LoginDetails): Observable<any> {
 
+        var uri = environment.dataApiUrl;
         this.loginDetails = login;
         return Observable.create(observer => {
-            var url = 'https://remindly.herokuapp.com/users/' + login.userName;
-            this.server.get(url).subscribe((value) => {
+            var endpoint = uri + 'users/' + login.userName;
+            this.server.get(endpoint).subscribe((value) => {
                 if (this.validateUser(value)){
 
                     observer.next(true);
@@ -59,6 +63,8 @@ export class AuthService {
                     observer.error(err);
                     observer.complete();
                 })
-        })
+        }) 
     }
 }
+
+export {MAP_SERVICE_BASE_URL,AuthService};

@@ -6,7 +6,7 @@ import {LoginPage} from '../Login/LoginPage';
 @Component({
     selector: 'page-splash',
     templateUrl: 'SplashPage.html',
-    styleUrls:['/pages/Login/SplashPage.scss']
+    styleUrls:['/pages/Splash/SplashPage.scss']
 })
 export class SplashPage{
 
@@ -17,7 +17,7 @@ export class SplashPage{
 
     ionViewDidLoad()
     {
-        this.authService.getUserDetails().then(function (val) {
+      /*  this.authService.getUserDetails().then(function (val) {
             if (val) {
               this.nav.setRoot(HomePage);
             }
@@ -26,6 +26,6 @@ export class SplashPage{
             }
           }, function (err) {
             this.nav.setRoot(LoginPage);
-          })
+          }) */
     }
 }

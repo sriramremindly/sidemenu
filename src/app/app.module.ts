@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -16,10 +15,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {MenuService} from '../DataService/MenuService';
 import {ProductService} from '../DataService/ProductService';
+import {GroupService} from '../DataService/GroupsService';
 import {UserService} from '../DataService/UsersService';
-import {HttpModule} from '../../node_modules/@angular/http';
-import {AuthService} from '../DataService/AuthService';
+import {HttpModule, Http} from '../../node_modules/@angular/http';
+import {AuthService ,MAP_SERVICE_BASE_URL} from '../DataService/AuthService';
 import {Storage, IonicStorageModule} from '@ionic/storage';
+import {Groupspage} from '../pages/Groups/GroupsPage';
+import {environment} from '../environment/environment';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {Storage, IonicStorageModule} from '@ionic/storage';
     DeleteModalPage,
     LoginPage,
     SignUpPage,
-    SplashPage
+    SplashPage,
+    Groupspage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import {Storage, IonicStorageModule} from '@ionic/storage';
     DeleteModalPage,
     LoginPage,
     SignUpPage,
-    SplashPage
+    SplashPage,
+    Groupspage
   ],
   providers: [
     StatusBar,
@@ -59,8 +63,13 @@ import {Storage, IonicStorageModule} from '@ionic/storage';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: MenuService, useClass: MenuService},
     {provide:ProductService,useClass:ProductService},
-    {provide:UserService,useClass:UserService},
-    {provide:AuthService,useClass:AuthService}
+    {provide:UserService,useClass:UserService},      
+    {provide: MAP_SERVICE_BASE_URL, useFactory : ()=> {
+      return environment.dataApiUrl
+    }},
+    {provide:AuthService,useClass:AuthService,
+    deps:[Http,MAP_SERVICE_BASE_URL]},
+    {provide:GroupService,useClass:GroupService}   
   ]
 })
 export class AppModule {}
