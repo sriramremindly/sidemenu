@@ -8,7 +8,7 @@ import {UserGroupService} from '../../DataService/UserGroupService';
 @Component({
     selector: 'page-GroupUsers',
     templateUrl: 'GroupUsers.html',
-    styleUrls: ['/pages/GroupUsers/GroupUsers.scss']
+    styles: ['/GroupUsers.scss']
 })
 export class GroupUserspage implements OnInit {
 

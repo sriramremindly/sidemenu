@@ -10,7 +10,7 @@ import { HomePage } from '../home/home';
 @Component({
     selector: 'page-Login',
     templateUrl: 'LoginPage.html',
-    styleUrls: ['/pages/Login/LoginPage.scss']
+    styles: ['LoginPage.scss']
 })
 export class LoginPage {
     server: Http;

@@ -6,7 +6,7 @@ import {LoginPage} from '../Login/LoginPage';
 @Component({
     selector: 'page-splash',
     templateUrl: 'SplashPage.html',
-    styleUrls:['/pages/Splash/SplashPage.scss']
+    styles:['SplashPage.scss']
 })
 export class SplashPage{
 

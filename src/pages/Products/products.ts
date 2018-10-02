@@ -12,7 +12,7 @@ import { User } from '../../DataModels/Users';
 @Component({
   selector: 'page-products',
   templateUrl: 'products.html',
-  styleUrls:['/pages/Products/products.scss']
+  styles:['products.scss']
 })
 export class ProductsPage  implements OnInit{
   rootPage: any = ListPage;

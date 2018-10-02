@@ -8,7 +8,7 @@ import {User} from '../../DataModels/Users';
 @Component({
     selector: 'page-Groups',
     templateUrl: 'GroupsPage.html',
-    styleUrls: ['/pages/Groups/GroupsPage.scss']
+    styles: ['/pages/Groups/GroupsPage.scss']
 })
 export class Groupspage implements OnInit {
 

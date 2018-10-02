@@ -10,7 +10,7 @@ import {GroupProduct} from '../../DataModels/GroupProducts';
 @Component({
   selector: 'page-Groupproducts',
   templateUrl: 'GroupProductsPage.html',
-  styleUrls:['/pages/GroupProducts/GroupProducts.scss']
+  styles:['GroupProducts.scss']
 })
 export class GroupProductsPage  implements OnInit{
   rootPage: any = ListPage;

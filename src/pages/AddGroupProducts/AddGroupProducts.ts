@@ -11,7 +11,7 @@ import {User} from '../../DataModels/Users';
 @Component({
   selector: 'page-AddGroupProducts',
   templateUrl: 'AddGroupProducts.html',
-  styleUrls:['/pages/AddGroupProducts/AddGroupProducts.scss']
+  styles:['AddGroupProducts.scss']
 })
 export class AddGroupProductsPage  implements OnInit{
   rootPage: any = ListPage;

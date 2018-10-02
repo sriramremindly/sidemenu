@@ -10,7 +10,7 @@ import {User} from '../../DataModels/Users';
 @Component({
   selector: 'page-NextVisit',
   templateUrl: 'NextVisit.html',
-  styleUrls:['/pages/NextVisit/NextVisit.scss']
+  styles:['NextVisit.scss']
 })
 export class NextVisitPage  implements OnInit{
   rootPage: any = ListPage;

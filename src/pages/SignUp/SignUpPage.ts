@@ -10,7 +10,7 @@ import {HomePage} from '../home/home';
 @Component({
     selector: 'page-signup',
     templateUrl: 'SignUpPage.html',
-    styleUrls:['/pages/Login/SignUpPage.scss']
+    styles:['SignUpPage.scss']
 })
 export class SignUpPage{
 server:Http

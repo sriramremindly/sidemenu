@@ -12,7 +12,7 @@ import {Product} from '../../DataModels/Products';
 @Component({
   selector: 'page-GroupNextVisit',
   templateUrl: 'GroupNextVisit.html',
-  styleUrls:['/pages/GroupNextVisit/GroupNextVisit.scss']
+  styles:['GroupNextVisit.scss']
 })
 export class GroupNextVisitPage  implements OnInit{
   rootPage: any = ListPage;

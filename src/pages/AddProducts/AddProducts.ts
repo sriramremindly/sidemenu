@@ -11,7 +11,7 @@ import {User} from '../../DataModels/Users';
 @Component({
   selector: 'page-AddProducts',
   templateUrl: 'AddProducts.html',
-  styleUrls:['/pages/AddProduct/Addproducts.scss']
+  styles:['Addproducts.scss']
 })
 export class AddProductsPage  implements OnInit{
   rootPage: any = ListPage;

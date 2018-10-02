@@ -11,7 +11,7 @@ import {AuthService} from '../../DataService/AuthService';
 @Component({
   selector: 'page-AddGroups',
   templateUrl: 'AddGroups.html',
-  styleUrls:['/pages/AddGroups/AddGroups.scss']
+  styles:['AddGroups.scss']
 })
 export class AddGroupsPage  implements OnInit{
   rootPage: any = ListPage;
