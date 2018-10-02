@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>New Groups</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>   
+      <ion-item>
+        <ion-input placeholder="Add New Groups" [(ngModel)] = "groupName"></ion-input>
+    </ion-item>  
+    <ion-item>
+      <button ion-button (click)="AddNewGroup()">Submit</button>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{submitMsg}} </ion-label>
+  </ion-item>  
+  </ion-content>
+  

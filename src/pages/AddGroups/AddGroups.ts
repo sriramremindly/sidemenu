@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 import {ListPage} from '../list/list';
-import {ProductService} from '../../DataService/ProductService';
+import {GroupService} from '../../DataService/GroupsService';
 import { Observable } from 'rxjs/Observable';
-import {Product} from '../../DataModels/Products';
+import {Group} from '../../DataModels/Groups';
 import {AuthService} from '../../DataService/AuthService';
-import {User} from '../../DataModels/Users';
 
 
 @Component({
-  selector: 'page-AddProducts',
-  templateUrl: 'AddProducts.html',
-  styleUrls:['/pages/AddProduct/Addproducts.scss']
+  selector: 'page-AddGroups',
+  templateUrl: 'AddGroups.html',
+  styleUrls:['/pages/AddGroups/AddGroups.scss']
 })
-export class AddProductsPage  implements OnInit{
+export class AddGroupsPage  implements OnInit{
   rootPage: any = ListPage;
-  productName: string;
+  groupName: string;
   submitMsg: string;
-  user: User;
  // products: Array<{name:string,nextVisit:Number}> ;
  products:Observable<Array<any>>;
-  constructor(public navCtrl: NavController,public productService:ProductService,
-              public authService: AuthService) {     
-   this.user = this.authService.getUserDetails();         
+  constructor(public navCtrl: NavController,public groupService:GroupService,
+    public authService:AuthService) {     
+            
   }
 
   public ngOnInit()
@@ -36,16 +35,15 @@ export class AddProductsPage  implements OnInit{
       /// })  
   }
 
-  public AddNewProduct()
+  public AddNewGroup()
   {
-    var userId = this.user.userId;
-  let prod = new Product();
-  prod.productName = this.productName;
-  prod.nextVisit = '0';
-  prod.userId = userId;
-    this.productService.addProductapi(prod).subscribe((value)=>{         
+    var user = this.authService.getUserDetails();
+  let group = new Group();
+  group.groupName = this.groupName;
+  group.groupOwner = user.userId;
+    this.groupService.addNewGroup(group).subscribe((value)=>{         
       let obj = JSON.parse(value._body);
-      this.submitMsg = "Product has been added successfully";
+      this.submitMsg = "Group has been added successfully";
     },
     err => {
       let msg = err._body;

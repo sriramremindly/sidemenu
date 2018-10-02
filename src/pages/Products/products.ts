@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import {ListPage} from '../list/list';
-import {DeleteModalPage} from '../Modals/DeleteModal';
 import {ProductService} from '../../DataService/ProductService';
-import { Observable } from 'rxjs/Observable';
+import {GroupService} from '../../DataService/GroupsService';
+import {AuthService} from '../../DataService/AuthService';
 import {Product} from '../../DataModels/Products';
+import { User } from '../../DataModels/Users';
+
 
 
 @Component({
@@ -18,24 +19,27 @@ export class ProductsPage  implements OnInit{
  // products: Array<{name:string,nextVisit:Number}> ;
  products:Array<any>;
  updateMsg:string;
+ user:User;
   constructor(public navCtrl: NavController,public productService:ProductService,
-    public modalctrl: ModalController) {     
-            
+    public modalctrl: ModalController, public authService:AuthService) {     
+   this.user = this.authService.getUserDetails();
   }
 
   public ngOnInit()
   {
-    this.productService.getProductsListapi().subscribe((value) =>{
+    var userId = this.user.userId;
+    this.productService.getProductsListapi(userId).subscribe((value) =>{
       let data = JSON.parse(value._body);
       let obj = data.message;
        this.products = obj.map(val => {
           var nextvisit = val.nextVisit== 1 ? true: false;
-            return {productName:val.productName,nextVisit:nextvisit,userId:val._id}; 
+            return {productName:val.productName,nextVisit:nextvisit,prodId:val._id,userId:val.userId}; 
         })
       })  
   }
 
   public updateItem(product:Product) { 
+    product.userId = this.user.userId;
   this.productService.updateProductapi(product).subscribe((value)=> { 
   if(product.nextVisit)
   {
@@ -61,9 +65,9 @@ err => {
 
  public DeleteItem(product : Product)
  {
-  var userid = product.userId;
+  var prodId = product.prodId;
   var prodIndex = this.products.indexOf(product);
-  this.productService.deleteProductapi(userid).subscribe((val)=> {
+  this.productService.deleteProductapi(prodId).subscribe((val)=> {
     if (prodIndex >-1)
     this.products.splice(prodIndex,1); 
   },

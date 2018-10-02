@@ -4,15 +4,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/Login/LoginPage';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { SignUpPage } from '../pages/SignUp/SignUpPage';
 import { ProductsPage } from '../pages/Products/products';
 import { MenuService } from '../DataService/MenuService';
 import { AddProductsPage } from '../pages/AddProducts/AddProducts';
 import { NextVisitPage } from '../pages/NextVisit/NextVisit';
 import { AuthService } from '../DataService/AuthService';
-import {SplashPage} from '../pages/Splash/SplashPage';
 import {Groupspage} from '../pages/Groups/GroupsPage';
+import {AddGroupsPage} from '../pages/AddGroups/AddGroups';
+import {GroupUserspage} from '../pages/GroupUsers/GroupUsers';
+import {GroupProductsPage} from '../pages/GroupProducts/GroupProductsPage';
+import {GroupNextVisitPage} from '../pages/GroupNextVisit/GroupNextVisit';
+import {AddGroupProductsPage} from '../pages/AddGroupProducts/AddGroupProducts';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +27,15 @@ export class MyApp {
   pages: Array<{ title: string, component: any, value: string }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-    private _menuService: MenuService, public authService: AuthService) {
+    private _menuService: MenuService, public authService: AuthService,
+    public menuService: MenuService) {
+      
+      this.menuService.groupsSelected.subscribe((group)=> {
+        this.displayGroupsPage(group);
+      },
+      err => {
+
+      });
    // this.nav.setRoot(HomePage);
       /*this.authService.getUserDetails().then(function (val) {
       if (val) {
@@ -48,6 +58,8 @@ export class MyApp {
 
   }
 
+  
+
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -66,12 +78,14 @@ export class MyApp {
       case 'Home': {
         this.pages = [
           { title: 'Home', component: HomePage, value: 'Home' },
+          {title:'Groups', component:Groupspage, value: 'Groups'},
           { title: 'Products', component: ProductsPage, value: 'Products' }
         ];
         break;
       }
       case 'Products': {
         this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
           { title: 'Next Visit', component: NextVisitPage, value: 'NextVisit' },
           { title: 'Regular List', component: ProductsPage, value: 'RegularVisit' },
           { title: 'Add Products', component: AddProductsPage, value: 'Addproducts' }
@@ -80,14 +94,14 @@ export class MyApp {
       }
       case 'Groups': {
          this.pages = [
-          { title: 'Home', component: NextVisitPage, value: 'NextVisit' },
-          { title: 'Groups', component: ProductsPage, value: 'RegularVisit' },
-          { title: 'Group Products', component: AddProductsPage, value: 'Addproducts' }
+          { title: 'Home', component: HomePage, value: 'Home' },
+          { title: 'Add New Group', component: AddGroupsPage, value: 'NewGroup' }
          ];
          break;
       }
       case 'Addproducts': {
         this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
           { title: 'Next Visit', component: NextVisitPage, value: 'NextVisit' },
           { title: 'Regular List', component: ProductsPage, value: 'RegularVisit' },
           { title: 'Add Products', component: AddProductsPage, value: 'Addproducts' }
@@ -96,6 +110,7 @@ export class MyApp {
       }
       case 'RegularVisit': {
         this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
           { title: 'Next Visit', component: NextVisitPage, value: 'NextVisit' },
           { title: 'Regular List', component: ProductsPage, value: 'RegularVisit' },
           { title: 'Add Products', component: AddProductsPage, value: 'Addproducts' }
@@ -104,10 +119,58 @@ export class MyApp {
       }
       case 'NextVisit': {
         this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
           { title: 'Next Visit', component: NextVisitPage, value: 'NextVisit' },
           { title: 'Regular List', component: ProductsPage, value: 'RegularVisit' },
           { title: 'Add Products', component: AddProductsPage, value: 'Addproducts' }
         ];
+        break;
+      }
+      case 'NewGroup' : {
+         this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
+          {title:'Groups', component:Groupspage, value: 'Groups'}
+         ]
+        break;
+      }
+      case 'GroupProducts' : {
+        this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
+          {title:'Groups', component:Groupspage, value: 'Groups'},
+          { title: 'Next Visit', component: GroupNextVisitPage, value: 'GroupNextVisit' },
+          {title:'Regular List', component:GroupProductsPage, value: 'GroupRegularVisit'},
+          {title:'Add Products', component:AddGroupProductsPage, value: 'AddGroupproducts'}
+         ]
+        break;
+      }
+      case 'GroupNextVisit' : {
+        this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
+          {title:'Groups', component:Groupspage, value: 'Groups'},
+          { title: 'Next Visit', component: GroupNextVisitPage, value: 'GroupNextVisit' },
+          {title:'Regular List', component:GroupProductsPage, value: 'GroupRegularVisit'},
+          {title:'Add Products', component:AddGroupProductsPage, value: 'AddGroupproducts'}
+         ]
+        break;
+      }
+      case 'GroupRegularVisit' : {
+        this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
+          {title:'Groups', component:Groupspage, value: 'Groups'},
+          { title: 'Next Visit', component: GroupNextVisitPage, value: 'GroupNextVisit' },
+          {title:'Regular List', component:GroupProductsPage, value: 'GroupRegularVisit'},
+          {title:'Add Products', component:AddGroupProductsPage, value: 'AddGroupproducts'}
+         ]
+        break;
+      }
+      case 'AddGroupproducts' : {
+        this.pages = [
+          { title: 'Home', component: HomePage, value: 'Home' },
+          {title:'Groups', component:Groupspage, value: 'Groups'},
+          { title: 'Next Visit', component: GroupNextVisitPage, value: 'GroupNextVisit' },
+          {title:'Regular List', component:GroupProductsPage, value: 'GroupRegularVisit'},
+          {title:'Add Products', component:AddGroupProductsPage, value: 'AddGroupproducts'}
+         ]
         break;
       }
       default: {
@@ -120,4 +183,14 @@ export class MyApp {
     }
     this.nav.setRoot(page.component);
   }
+
+  displayGroupsPage(group:any){
+    this.pages = [
+      { title: 'Home', component: HomePage, value: 'Home' },
+      {title:'Groups', component:Groupspage, value: 'Groups'},
+      { title: 'Group Products', component: GroupProductsPage, value: 'GroupProducts' }
+    ]
+    this.nav.setRoot(GroupUserspage,{groupId:group.groupId});
+  }
+
 }

@@ -10,7 +10,7 @@
   <ion-content padding>
     <ion-list   *ngFor="let p of products">
       <ion-item>
-          <ion-icon item-right name="trash" [attr.data-usid]="p.prodId" (click)="DeleteItem(p)"></ion-icon>
+          <ion-icon item-right name="trash" [attr.data-usid]="p.groupProdId" (click)="DeleteItem(p)"></ion-icon>
       <ion-label class="product-label">{{p.productName}} </ion-label>
         </ion-item>
     </ion-list>

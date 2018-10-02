@@ -1,8 +1,8 @@
 import {Injectable,EventEmitter} from '../../node_modules/@angular/core';
 import {Http,HttpModule, RequestOptions,Headers} from '../../node_modules/@angular/http';
-import {HttpHeaders} from '../../node_modules/@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {Product} from '../DataModels/Products';
+import {environment} from '../environment/environment';
 
 @Injectable()
 export class ProductService{
@@ -18,9 +18,11 @@ constructor(private http: Http)
   return  this.server.get('https://api.mlab.com/api/1/databases/remindly/collections/products?apiKey=GvE5cyrcq9NxjEZqlGreNs-AxtDPCnDc');
 } */
 
-getProductsListapi():Observable<any>
+getProductsListapi(userId : string):Observable<any>
 {
-  return  this.server.get('http://localhost:3000/products/all');
+  var url = environment.dataApiUrl;
+  var endpoint = url + 'products/all/' + userId;
+  return  this.server.get(endpoint);
 }
 
 /* deleteProduct(usid : any)
@@ -28,9 +30,12 @@ getProductsListapi():Observable<any>
 return this.server.delete('https://api.mlab.com/api/1/databases/remindly/collections/products/' + usid + '?apiKey=GvE5cyrcq9NxjEZqlGreNs-AxtDPCnDc');
 } */
 
-deleteProductapi(usid : any)
+deleteProductapi(prodid : any)
 {
-return this.server.delete('http://localhost:3000/products/' + usid);
+  
+  var url = environment.dataApiUrl;
+  var endpoint = url + 'products/' + prodid;
+return this.server.delete(endpoint);
 }
 
 /* addProduct(product : Product):Observable<any>
@@ -46,12 +51,14 @@ return this.server.delete('http://localhost:3000/products/' + usid);
 
 addProductapi(product : Product):Observable<any>
 {
+  var url = environment.dataApiUrl;
+  var endpoint = url + 'products';
   const httpOptions = {
     headers: new Headers({
       'Content-Type':  'application/json'
     })
   };
- return  this.server.post('http://localhost:3000/products', product,httpOptions);
+ return  this.server.post(endpoint, product,httpOptions);
 }
 
 /* updateProduct(product:Product):Observable<any>
@@ -71,16 +78,18 @@ JSON.stringify(prodToUpdate),httpOptions);
 
 updateProductapi(product:Product):Observable<any>
 {
+  var url = environment.dataApiUrl;
+  var endpoint = url + 'products/';
   let usid = product.userId;
+  let prodId = product.prodId;
   let nextVisitValue = product.nextVisit == true?'1':'0';
-  let prodToUpdate = {productName :product.productName,nextVisit:nextVisitValue};
+  let prodToUpdate = {productName :product.productName,nextVisit:nextVisitValue,userId:usid};
 const httpOptions = {
 headers: new Headers({
-  'Content-Type':  'application/json',     
-      'dataType': 'jsonp',
+  'Content-Type':  'application/json'
 })
 };
-return this.server.put('http://localhost:3000/products/' + usid,
+return this.server.put(endpoint + prodId,
                         JSON.stringify(prodToUpdate),httpOptions);
   }
 }

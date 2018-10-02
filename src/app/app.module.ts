@@ -11,6 +11,8 @@ import {DeleteModalPage} from '../pages/Modals/DeleteModal';
 import {LoginPage} from '../pages/Login/LoginPage';
 import {SignUpPage} from '../pages/SignUp/SignUpPage';
 import {SplashPage} from '../pages/Splash/SplashPage';
+import {AddGroupsPage} from '../pages/AddGroups/AddGroups';
+import {GroupUserspage} from '../pages/GroupUsers/GroupUsers';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {MenuService} from '../DataService/MenuService';
@@ -22,6 +24,11 @@ import {AuthService ,MAP_SERVICE_BASE_URL} from '../DataService/AuthService';
 import {Storage, IonicStorageModule} from '@ionic/storage';
 import {Groupspage} from '../pages/Groups/GroupsPage';
 import {environment} from '../environment/environment';
+import {AddGroupProductsPage} from '../pages/AddGroupProducts/AddGroupProducts';
+import {GroupNextVisitPage} from '../pages/GroupNextVisit/GroupNextVisit';
+import {GroupProductsPage} from '../pages/GroupProducts/GroupProductsPage';
+import {GroupProductService} from '../DataService/GroupProductsService';
+import {UserGroupService} from '../DataService/UserGroupService';
 
 @NgModule({
   declarations: [
@@ -35,7 +42,12 @@ import {environment} from '../environment/environment';
     LoginPage,
     SignUpPage,
     SplashPage,
-    Groupspage
+    Groupspage,
+    AddGroupsPage,
+    GroupUserspage,
+    AddGroupProductsPage,
+    GroupNextVisitPage,
+    GroupProductsPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +67,12 @@ import {environment} from '../environment/environment';
     LoginPage,
     SignUpPage,
     SplashPage,
-    Groupspage
+    Groupspage,
+    AddGroupsPage,
+    GroupUserspage,
+    AddGroupProductsPage,
+    GroupNextVisitPage,
+    GroupProductsPage
   ],
   providers: [
     StatusBar,
@@ -69,7 +86,9 @@ import {environment} from '../environment/environment';
     }},
     {provide:AuthService,useClass:AuthService,
     deps:[Http,MAP_SERVICE_BASE_URL]},
-    {provide:GroupService,useClass:GroupService}   
+    {provide:GroupService,useClass:GroupService},
+    {provide:GroupProductService,useClass:GroupProductService},
+    {provide:UserGroupService,useClass:UserGroupService}    
   ]
 })
 export class AppModule {}

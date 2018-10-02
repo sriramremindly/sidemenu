@@ -5,6 +5,7 @@ import {environment} from '../environment/environment';
 import { Observable } from 'rxjs/Observable';
 import { LoginDetails } from '../DataModels/LoginDetails';
 import {Storage} from '@ionic/storage';
+import { User } from '../DataModels/Users';
 const MAP_SERVICE_BASE_URL = new InjectionToken<string>('MapServiceBaseUrl');
 
 @Injectable()
@@ -13,6 +14,7 @@ const MAP_SERVICE_BASE_URL = new InjectionToken<string>('MapServiceBaseUrl');
     loginDetails: LoginDetails;
      inValid = "Invalid UserName or Password";
      valid = "validUser";
+     user: User;
 
     constructor(public http: Http,   @Inject(MAP_SERVICE_BASE_URL)
         public MapServiceBaseUrl: string) {
@@ -25,8 +27,18 @@ const MAP_SERVICE_BASE_URL = new InjectionToken<string>('MapServiceBaseUrl');
         //this.storage.set("userName",user[0].email);
     }
 
-    getUserDetails() 
+    setUserDetails(user:User){
+        //this.user = user;
+        this.user = new User();
+        this.user.email = user[0].email;
+        this.user.userId = user[0]._id;
+    }
+
+    getUserDetails():User 
     {
+       // var user = new User();
+       // user.email = "sriram.sakinala@gmail.com";
+        return this.user;
        // return this.storage.get("userName");
     }
 
@@ -37,6 +49,7 @@ const MAP_SERVICE_BASE_URL = new InjectionToken<string>('MapServiceBaseUrl');
             return false;
         }
         else if (user.length == 1) {
+            this.setUserDetails(user);
             return (user[0].password == this.loginDetails.password) ? true : false;
         }
 
@@ -51,7 +64,6 @@ const MAP_SERVICE_BASE_URL = new InjectionToken<string>('MapServiceBaseUrl');
             var endpoint = uri + 'users/' + login.userName;
             this.server.get(endpoint).subscribe((value) => {
                 if (this.validateUser(value)){
-
                     observer.next(true);
                 }
                 else{
