@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { GroupService } from '../../DataService/GroupsService';
 import { MenuService } from '../../DataService/MenuService';
 import {UserGroupService} from '../../DataService/UserGroupService';
@@ -15,10 +15,12 @@ export class GroupUserspage implements OnInit {
     users: Array<any>;
     groupId: string;
     userName: string;
-    submitMsg: string;
+    submitMsg: string ;
+    showMsg:boolean= false;
+    loader:any;
     constructor(public navCtrl: NavController, public groupService: GroupService,
         public menuService: MenuService, public navParams: NavParams,
-         public userGroupService:UserGroupService) {
+         public userGroupService:UserGroupService,public loadingCtrl: LoadingController) {
         this.groupId = this.navParams.get("groupId");
     }
 
@@ -37,13 +39,37 @@ export class GroupUserspage implements OnInit {
     }
 
    public AddNewUser() {
-       var goupId = this.groupService.groupId;
+this.showMsg = false;
+this.createLoadingCtrl();
+    var goupId = this.groupService.groupId;
        var userName = this.userName
    this.userGroupService.addUsertoGroup(userName,goupId).subscribe((value)=> {
-console.log(value);
+    this.displayMsg("User has been added to the group successfully.");
+    this.dismissLoader();
    },
    err => {
-console.log(err);
+    this.displayMsg("Error in adding the user to the group.");
+    this.dismissLoader();
    });
+    }
+
+    public displayMsg(msg)
+    {
+     this.showMsg = true;
+     this.submitMsg = msg;
+    }
+
+    public createLoadingCtrl()
+    {
+        this.loader = this.loadingCtrl.create({
+         content: "Please wait while trying to add User to group"
+        }
+      )
+      this.loader.present();
+    }
+   
+    public dismissLoader()
+    {
+        this.loader.dismiss();
     }
 }

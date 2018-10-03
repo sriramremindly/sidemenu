@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { App, ViewController, NavController } from 'ionic-angular';
+import { App, ViewController, NavController,LoadingController } from 'ionic-angular';
 import { SignUpPage } from '../SignUp/SignUpPage';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../DataService/AuthService';
@@ -17,9 +17,11 @@ export class LoginPage {
     login_Form: FormGroup;
     loginDetails: LoginDetails;
     showErrorMsg: boolean = false;
+    loader:any;
 
     constructor(private http: Http, public viewCtrl: ViewController, public appCtrl: App,
-        public navCtrl: NavController, public formBuilder: FormBuilder, public authService: AuthService) {
+        public navCtrl: NavController, public formBuilder: FormBuilder, public authService: AuthService,
+        public loadingCtrl: LoadingController) {
         this.server = http;
     }
 
@@ -35,11 +37,13 @@ export class LoginPage {
     }
 
     onSubmit(values) {
+      this.createLoadingCtrl();
         this.showErrorMsg = false;
         this.loginDetails = new LoginDetails();
         this.loginDetails.userName = values.userName;
         this.loginDetails.password = values.Password;
         this.authService.authenticateUser(this.loginDetails).subscribe((value) => {
+           this.dismissLoader();
             if (value) {
                 this.navCtrl.setRoot(HomePage);
             }
@@ -48,7 +52,22 @@ export class LoginPage {
             }
         },
             err => {
+                this.dismissLoader();
                 console.log(err);
             });
+    }
+
+    public createLoadingCtrl()
+    {
+        this.loader = this.loadingCtrl.create({
+         content: "Please wait while trying to authenticate"
+        }
+      )
+      this.loader.present();
+    }
+
+    public dismissLoader()
+    {
+        this.loader.dismiss();
     }
 }

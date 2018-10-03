@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Icon } from 'ionic-angular';
+import { NavController, Icon, LoadingController } from 'ionic-angular';
 import {ListPage} from '../list/list';
 import {ProductService} from '../../DataService/ProductService';
 import {AuthService} from '../../DataService/AuthService';
@@ -14,11 +14,13 @@ import {User} from '../../DataModels/Users';
 })
 export class NextVisitPage  implements OnInit{
   rootPage: any = ListPage;
+  updateMsg:string;
   user:User;
- // products: Array<{name:string,nextVisit:Number}> ;
+  showMsg:boolean= false;
+  loader:any;
  products: Array<any>;
   constructor(public navCtrl: NavController,public productService:ProductService,
-    public authService:AuthService) {     
+    public authService:AuthService,public loadingCtrl: LoadingController) {     
     this.user = this.authService.getUserDetails();
   }
 
@@ -38,6 +40,8 @@ export class NextVisitPage  implements OnInit{
 
   public DeleteItem(product : any)
   {
+    this.showMsg = false;
+    this.createLoadingCtrl();
     var userId = this.user.userId;
     var prodid = product._id;
    var prodIndex = this.products.indexOf(product);
@@ -46,9 +50,33 @@ export class NextVisitPage  implements OnInit{
     this.productService.updateProductapi(productToUpdate).subscribe((val)=> {
    if (prodIndex >-1)
       this.products.splice(prodIndex,1); 
+      this.displayMsg("Product has been deleted from next visit successfully");
+      this.dismissLoader();
     },
    err => {
+    this.displayMsg("Error in deleting the product successfully");
+    this.dismissLoader();
    }) 
+  }
+
+  public displayMsg(msg)
+  {
+   this.showMsg = true;
+   this.updateMsg = msg;
+  }
+
+  public createLoadingCtrl()
+  {
+      this.loader = this.loadingCtrl.create({
+       content: "Please wait while trying to delete product from next visit"
+      }
+    )
+    this.loader.present();
+  }
+ 
+  public dismissLoader()
+  {
+      this.loader.dismiss();
   }
 
 }

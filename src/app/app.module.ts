@@ -29,6 +29,7 @@ import {GroupNextVisitPage} from '../pages/GroupNextVisit/GroupNextVisit';
 import {GroupProductsPage} from '../pages/GroupProducts/GroupProductsPage';
 import {GroupProductService} from '../DataService/GroupProductsService';
 import {UserGroupService} from '../DataService/UserGroupService';
+import {LogOutPage} from '../pages/LogOut/LogOutPage';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {UserGroupService} from '../DataService/UserGroupService';
     GroupUserspage,
     AddGroupProductsPage,
     GroupNextVisitPage,
-    GroupProductsPage
+    GroupProductsPage,
+    LogOutPage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import {UserGroupService} from '../DataService/UserGroupService';
     GroupUserspage,
     AddGroupProductsPage,
     GroupNextVisitPage,
-    GroupProductsPage
+    GroupProductsPage,
+    LogOutPage
   ],
   providers: [
     StatusBar,

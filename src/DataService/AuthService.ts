@@ -56,6 +56,10 @@ const MAP_SERVICE_BASE_URL = new InjectionToken<string>('MapServiceBaseUrl');
         //  return 'yes';
     }
 
+    DeleteUserSession(){
+        this.user = new User();
+    }
+
     authenticateUser(login: LoginDetails): Observable<any> {
 
         var uri = environment.dataApiUrl;

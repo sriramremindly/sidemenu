@@ -15,7 +15,7 @@
       <ion-toggle [(ngModel)]="p.nextVisit" (ionChange)="updateItem(p)"></ion-toggle>
     </ion-item>
     </ion-list>
-    <ion-item>
+    <ion-item *ngIf="showMsg">
       <ion-label>{{updateMsg}} </ion-label>
     </ion-item>
   </ion-content>

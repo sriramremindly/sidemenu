@@ -4,7 +4,7 @@ import { FormGroup,FormControl,FormBuilder, Validators } from '@angular/forms';
 import {User} from '../../DataModels/Users';
 import {UserService} from '../../DataService/UsersService';
 import {Storage} from '@ionic/storage';
-import {NavController} from 'ionic-angular';
+import {NavController,LoadingController} from 'ionic-angular';
 import {HomePage} from '../home/home';
 
 @Component({
@@ -15,9 +15,10 @@ import {HomePage} from '../home/home';
 export class SignUpPage{
 server:Http
 validation_Form : FormGroup;
+loader:any;
 
 constructor(private http:Http, public formBuilder:FormBuilder,public userservice: UserService,
-    public storage : Storage, public navCtrl : NavController)
+    public storage : Storage, public navCtrl : NavController,public loadingCtrl: LoadingController)
 {
     this.server = http;
 }
@@ -45,6 +46,7 @@ onSubmit(values)
 
 createUser(values)
 {
+    this.createLoadingCtrl();
 let userToAdd = new User();
 userToAdd.firstName  = values.firstName;
 userToAdd.lastName = values.lastName;
@@ -58,10 +60,26 @@ this.userservice.addUserapi(userToAdd).subscribe((value)=>{
     this.storage.set('isLoggedIn',true);
     this.navCtrl.setRoot(HomePage);
     console.log(value);
+    this.dismissLoader();
 },
 err => {
+    this.dismissLoader();
     console.log(err);
   });
+ }
+
+ public createLoadingCtrl()
+ {
+     this.loader = this.loadingCtrl.create({
+      content: "Please wait while trying to create User"
+     }
+   )
+   this.loader.present();
+ }
+
+ public dismissLoader()
+ {
+     this.loader.dismiss();
  }
 }
 

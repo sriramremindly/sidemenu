@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Icon } from 'ionic-angular';
+import { NavController, Icon,LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import {ListPage} from '../list/list';
 import {GroupProductService} from '../../DataService/GroupProductsService';
@@ -16,11 +16,13 @@ import {Product} from '../../DataModels/Products';
 })
 export class GroupNextVisitPage  implements OnInit{
   rootPage: any = ListPage;
+  updateMsg:string;
   groupId: string;
- // products: Array<{name:string,nextVisit:Number}> ;
- products: Array<any>;
+  showMsg:boolean= false;
+  loader:any;
+  products: Array<any>;
   constructor(public navCtrl: NavController,public groupProductService:GroupProductService,
-    public groupService:GroupService) {     
+    public groupService:GroupService,public loadingCtrl: LoadingController) {     
          this.groupId =  this.groupService.groupId; 
   }
 
@@ -40,6 +42,8 @@ export class GroupNextVisitPage  implements OnInit{
 
   public DeleteItem(product : any)
   {
+    this.showMsg = false;
+    this.createLoadingCtrl();
     var groupProdid = product._id;
    var prodIndex = this.products.indexOf(product);
           
@@ -48,10 +52,34 @@ export class GroupNextVisitPage  implements OnInit{
     this.groupProductService.updateProductapi(productToUpdate).subscribe((val)=> {
    if (prodIndex >-1)
       this.products.splice(prodIndex,1); 
+      this.displayMsg("Product has been deleted succesfully from next visit"); 
+      this.dismissLoader();
     },
    err => {
-   })
+    this.displayMsg("Error in deleting the Product from next visit"); 
+    this.dismissLoader();
+  })
  
+  }
+
+  public displayMsg(msg)
+  {
+   this.showMsg = true;
+   this.updateMsg = msg;
+  }
+
+  public createLoadingCtrl()
+  {
+      this.loader = this.loadingCtrl.create({
+       content: "Please wait while trying to remove product from next visit"
+      }
+    )
+    this.loader.present();
+  }
+ 
+  public dismissLoader()
+  {
+      this.loader.dismiss();
   }
 
 }

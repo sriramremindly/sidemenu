@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import {ListPage} from '../list/list';
 import {GroupProductService} from '../../DataService/GroupProductsService';
 import { Observable } from 'rxjs/Observable';
@@ -18,10 +18,12 @@ export class AddGroupProductsPage  implements OnInit{
   productName: string;
   submitMsg: string;
   groupId: string;
+  showMsg:boolean = false;
+  loader:any;
  // products: Array<{name:string,nextVisit:Number}> ;
  products:Observable<Array<any>>;
   constructor(public navCtrl: NavController,public groupProductService:GroupProductService,
-              public groupService: GroupService) {     
+              public groupService: GroupService,public loadingCtrl: LoadingController) {     
      this.groupId = this.groupService.groupId;  
   }
 
@@ -32,6 +34,8 @@ export class AddGroupProductsPage  implements OnInit{
 
   public AddNewProduct()
   {
+    this.showMsg = false;
+    this.createLoadingCtrl();
     var groupId = this.groupId;
   let prod = new GroupProduct();
   prod.productName = this.productName;
@@ -39,14 +43,35 @@ export class AddGroupProductsPage  implements OnInit{
   prod.groupId = groupId;
     this.groupProductService.addProductapi(prod).subscribe((value)=>{         
       let obj = JSON.parse(value._body);
-      this.submitMsg = "Product has been added successfully";
+      this.displayMsg("Product has been added successfully");
+      this.dismissLoader();
     },
     err => {
       let msg = err._body;
       if (msg.includes("duplicate key found")){
-      this.submitMsg = "Error in adding the product";
+      this.displayMsg("Error in adding the product");
+      this.dismissLoader();
      }        
     }
   );
+  }
+
+  public displayMsg(msg)
+  {
+   this.showMsg = true;
+   this.submitMsg = msg;
+  }
+  public createLoadingCtrl()
+  {
+      this.loader = this.loadingCtrl.create({
+       content: "Please wait while trying to add product"
+      }
+    )
+    this.loader.present();
+  }
+ 
+  public dismissLoader()
+  {
+      this.loader.dismiss();
   }
 }

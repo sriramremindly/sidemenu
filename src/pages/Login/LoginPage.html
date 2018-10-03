@@ -11,6 +11,7 @@
                     <ion-item>
                             <ion-label>Password</ion-label>
                             <ion-input type="password" formControlName="Password"> </ion-input>
+                            <pre>Touched? {{ login_Form.controls.Password.touched }}</pre>
                         </ion-item>
                 </ion-list>
             </ion-col>
@@ -23,7 +24,7 @@
                     <button ion-button class="login-button" type="button" (click)="SignUP()">SignUp</button>
                 </ion-col>
         </ion-row>
-        <ion-label >Invalid UserName or Password</ion-label>
+        <ion-label *ngIf="showErrorMsg" >Invalid UserName or Password</ion-label>
     </div>
     </form>
 </ion-content>

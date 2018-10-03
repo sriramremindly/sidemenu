@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import {ListPage} from '../list/list';
 import {GroupService} from '../../DataService/GroupsService';
@@ -17,40 +17,59 @@ export class AddGroupsPage  implements OnInit{
   rootPage: any = ListPage;
   groupName: string;
   submitMsg: string;
+  showMsg:boolean= false;
+  loader:any;
  // products: Array<{name:string,nextVisit:Number}> ;
  products:Observable<Array<any>>;
   constructor(public navCtrl: NavController,public groupService:GroupService,
-    public authService:AuthService) {     
+    public authService:AuthService,public loadingCtrl: LoadingController) {     
             
   }
 
   public ngOnInit()
   {
-  //  this.productService.getProductsList().subscribe((value) =>{
-    //  let obj = JSON.parse(value._body);
-     //  this.products = obj.map(val => {
-        //  var nextvisit = val.nextVisit== 1 ? true: false;
-        //    return {name:val.name,nextVisit:nextvisit}; 
-       // })
-      /// })  
+
   }
 
   public AddNewGroup()
   {
+    this.showMsg = false;
+    this.createLoadingCtrl();
     var user = this.authService.getUserDetails();
   let group = new Group();
   group.groupName = this.groupName;
   group.groupOwner = user.userId;
     this.groupService.addNewGroup(group).subscribe((value)=>{         
       let obj = JSON.parse(value._body);
-      this.submitMsg = "Group has been added successfully";
+      this.displayMsg("Group has been added successfully");
+      this.dismissLoader();
     },
     err => {
       let msg = err._body;
       if (msg.includes("duplicate key found")){
-      this.submitMsg = "Error in adding the product";
+      this.displayMsg("Error in adding the product");
+      this.dismissLoader();
      }        
     }
   );
+  }
+
+  public displayMsg(msg)
+  {
+   this.showMsg = true;
+   this.submitMsg = msg;
+  }
+  public createLoadingCtrl()
+  {
+      this.loader = this.loadingCtrl.create({
+       content: "Please wait while trying to add product"
+      }
+    )
+    this.loader.present();
+  }
+ 
+  public dismissLoader()
+  {
+      this.loader.dismiss();
   }
 }
