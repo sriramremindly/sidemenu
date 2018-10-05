@@ -14,7 +14,7 @@
     </ion-item>
     </ion-list>
     <ion-item>
-        <ion-input placeholder="Add New User" [(ngModel)] = "userName"></ion-input>
+        <ion-input placeholder="Add New User" [(ngModel)] = "userName" (ngModelChange)="valuechange($event)"></ion-input>
     </ion-item>  
     <ion-item>
       <button ion-button (click)="AddNewUser()">Submit</button>

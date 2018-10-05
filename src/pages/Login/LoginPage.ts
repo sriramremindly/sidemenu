@@ -19,6 +19,7 @@ export class LoginPage {
     showErrorMsg: boolean = false;
     loader:any;
 
+
     constructor(private http: Http, public viewCtrl: ViewController, public appCtrl: App,
         public navCtrl: NavController, public formBuilder: FormBuilder, public authService: AuthService,
         public loadingCtrl: LoadingController) {
@@ -37,6 +38,10 @@ export class LoginPage {
     }
 
     onSubmit(values) {
+        this.login_Form.controls.userName
+        console.log(this.login_Form.controls.userName);
+        if (this.login_Form.valid)
+        {
       this.createLoadingCtrl();
         this.showErrorMsg = false;
         this.loginDetails = new LoginDetails();
@@ -55,6 +60,7 @@ export class LoginPage {
                 this.dismissLoader();
                 console.log(err);
             });
+        }
     }
 
     public createLoadingCtrl()

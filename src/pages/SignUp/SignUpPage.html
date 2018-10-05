@@ -8,18 +8,30 @@
                             <ion-label >FirstName</ion-label>
                             <ion-input type="text" formControlName="firstName"> </ion-input>
                     </ion-item>
+                    <div class="alert alert-danger" *ngIf="this.validation_Form.controls.firstName.hasError('required') && validation_Form.controls.firstName.dirty">
+                        Please provide a valid firstName
+                        </div>
                     <ion-item>
                             <ion-label>LastName</ion-label>
                             <ion-input type="text" formControlName="lastName"> </ion-input>
                         </ion-item>
+                        <div class="alert alert-danger" *ngIf="this.validation_Form.controls.lastName.hasError('required') && validation_Form.controls.lastName.dirty">
+                            Please provide a valid lastName
+                            </div>
                         <ion-item>
                             <ion-label >EmailId</ion-label>
                             <ion-input type="text" formControlName="emailId"> </ion-input>
                     </ion-item>
+                    <div class="alert alert-danger" *ngIf="this.validation_Form.controls.emailId.hasError('required') && validation_Form.controls.emailId.dirty">
+                        Please provide a valid emailId
+                        </div>
                     <ion-item>
                             <ion-label >Password</ion-label>
                             <ion-input type="password" formControlName="passWord"> </ion-input>
                         </ion-item>
+                        <div class="alert alert-danger" *ngIf="this.validation_Form.controls.passWord.hasError('required') && validation_Form.controls.passWord.dirty">
+                            Please provide a valid passWord
+                            </div>
                 </ion-list>
             </ion-col>
         </ion-row>

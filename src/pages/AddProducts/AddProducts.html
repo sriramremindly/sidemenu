@@ -9,10 +9,10 @@
   
   <ion-content padding>   
       <ion-item>
-        <ion-input placeholder="Add New Product" [(ngModel)] = "productName"></ion-input>
+        <ion-input placeholder="Add New Product" [(ngModel)] = "productName" (ngModelChange)="valuechange($event)"></ion-input>
     </ion-item>  
     <ion-item>
-      <button ion-button (click)="AddNewProduct()">Submit</button>
+      <ion-label ion-button (click)="AddNewProduct()">Submit</ion-label>
   </ion-item>
   <ion-item *ngIf="showMsg">
     <ion-label>{{submitMsg}} </ion-label>

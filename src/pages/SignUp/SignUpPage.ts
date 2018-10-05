@@ -27,7 +27,7 @@ ionViewWillLoad()
 {
 
 this.validation_Form = this.formBuilder.group({
-    firstName: new FormControl('hhh',Validators.required),
+    firstName: new FormControl('',Validators.required),
     lastName: new FormControl('',Validators.required),
     emailId:new FormControl('',Validators.compose([
         Validators.required,
@@ -39,13 +39,15 @@ this.validation_Form = this.formBuilder.group({
 
 onSubmit(values)
 {
-    console.log(values);
-    this.createUser(values);
+    if(this.validation_Form.valid)
+    {
+        this.createUser(values);
+    }
 }
 
 
 createUser(values)
-{
+{   
     this.createLoadingCtrl();
 let userToAdd = new User();
 userToAdd.firstName  = values.firstName;

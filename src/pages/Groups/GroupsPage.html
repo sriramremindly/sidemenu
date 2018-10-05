@@ -10,8 +10,8 @@
 <ion-content padding>
     <ion-list   *ngFor="let g of groups">
       <ion-item>
-      <ion-label class="group-label" (click)="displayGroupDetails(g)" [attr.data-usid]="g.userId">{{g.groupName}} </ion-label>
-    </ion-item>
+      <button class="group-label" (click)="displayGroupDetails(g)" [attr.data-usid]="g.userId">{{g.groupName}} </button>
+      </ion-item>
     </ion-list>
   </ion-content>
   

@@ -33,26 +33,45 @@ export class AddGroupsPage  implements OnInit{
 
   public AddNewGroup()
   {
-    this.showMsg = false;
-    this.createLoadingCtrl();
-    var user = this.authService.getUserDetails();
-  let group = new Group();
-  group.groupName = this.groupName;
-  group.groupOwner = user.userId;
-    this.groupService.addNewGroup(group).subscribe((value)=>{         
-      let obj = JSON.parse(value._body);
-      this.displayMsg("Group has been added successfully");
-      this.dismissLoader();
-    },
-    err => {
-      let msg = err._body;
-      if (msg.includes("duplicate key found")){
-      this.displayMsg("Error in adding the product");
-      this.dismissLoader();
-     }        
-    }
-  );
+ if (this.groupName.trim().length>0)
+ {
+   this.saveNewGroup();
+ }
+ else
+ {
+   this.displayMsg("Please enter a valid Group name");
+ }
   }
+
+  public valuechange(newvalue){
+    if(newvalue.trim().length>0)
+    {
+      this.showMsg = false;
+    }
+  }
+
+public saveNewGroup()
+{
+  this.showMsg = false;
+  this.createLoadingCtrl();
+  var user = this.authService.getUserDetails();
+let group = new Group();
+group.groupName = this.groupName;
+group.groupOwner = user.userId;
+  this.groupService.addNewGroup(group).subscribe((value)=>{         
+    let obj = JSON.parse(value._body);
+    this.displayMsg("Group has been added successfully");
+    this.dismissLoader();
+  },
+  err => {
+    let msg = err._body;
+    if (msg.includes("duplicate key found")){
+    this.displayMsg("Error in adding the product");
+    this.dismissLoader();
+   }        
+  }
+);
+}
 
   public displayMsg(msg)
   {

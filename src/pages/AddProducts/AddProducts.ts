@@ -34,27 +34,45 @@ export class AddProductsPage  implements OnInit{
 
   public AddNewProduct()
   {
-    this.showMsg = false;
-    this.createLoadingCtrl();
-    var userId = this.user.userId;
-  let prod = new Product();
-  prod.productName = this.productName;
-  prod.nextVisit = '0';
-  prod.userId = userId;
-    this.productService.addProductapi(prod).subscribe((value)=>{         
-      let obj = JSON.parse(value._body);
-      this.displayMsg("Product has been added successfully");
-      this.dismissLoader();
-    },
-    err => {
-      let msg = err._body;
-      if (msg.includes("duplicate key found")){
-      this.displayMsg("Error in adding the product");
-      this.dismissLoader();
-     }        
-    }
-  );
+  if(this.productName.trim().length > 0)  {
+    this.saveProduct();
   }
+  else
+  {
+    this.displayMsg("Please enter a valid product name");
+  }
+  }
+
+  public valuechange(newvalue){
+    if(newvalue.trim().length>0)
+    {
+      this.showMsg = false;
+    }
+  }
+
+public saveProduct()
+{
+  this.showMsg = false;
+  this.createLoadingCtrl();
+  var userId = this.user.userId;
+let prod = new Product();
+prod.productName = this.productName;
+prod.nextVisit = '0';
+prod.userId = userId;
+  this.productService.addProductapi(prod).subscribe((value)=>{         
+    let obj = JSON.parse(value._body);
+    this.displayMsg("Product has been added successfully");
+    this.dismissLoader();
+  },
+  err => {
+    let msg = err._body;
+    if (msg.includes("duplicate key found")){
+    this.displayMsg("Error in adding the product");
+    this.dismissLoader();
+   }        
+  }
+);
+}
 
   public displayMsg(msg)
   {

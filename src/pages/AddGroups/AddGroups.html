@@ -9,7 +9,7 @@
   
   <ion-content padding>   
       <ion-item>
-        <ion-input placeholder="Add New Groups" [(ngModel)] = "groupName"></ion-input>
+        <ion-input placeholder="Add New Groups" [(ngModel)] = "groupName" (ngModelChange)="valuechange($event)"></ion-input>
     </ion-item>  
     <ion-item>
       <button ion-button (click)="AddNewGroup()">Submit</button>

@@ -34,6 +34,18 @@ export class AddGroupProductsPage  implements OnInit{
 
   public AddNewProduct()
   {
+    if(this.productName.trim().length > 0)
+    {
+this.saveNewProduct();
+    }
+    else 
+    {
+this.displayMsg("Please provide a valid product name");
+    }
+  }
+
+  public saveNewProduct()
+  {
     this.showMsg = false;
     this.createLoadingCtrl();
     var groupId = this.groupId;
@@ -54,8 +66,8 @@ export class AddGroupProductsPage  implements OnInit{
      }        
     }
   );
-  }
 
+  }
   public displayMsg(msg)
   {
    this.showMsg = true;
@@ -73,5 +85,12 @@ export class AddGroupProductsPage  implements OnInit{
   public dismissLoader()
   {
       this.loader.dismiss();
+  }
+
+  public valuechange(newvalue){
+    if(newvalue.trim().length>0)
+    {
+      this.showMsg = false;
+    }
   }
 }

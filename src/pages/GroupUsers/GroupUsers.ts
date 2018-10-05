@@ -39,7 +39,20 @@ export class GroupUserspage implements OnInit {
     }
 
    public AddNewUser() {
-this.showMsg = false;
+ if(this.userName.trim().length > 0)
+ {
+this.saveNewUser();
+ }
+ else 
+ {
+     this.displayMsg("Please provide a valid user name");
+ }
+    }
+
+  public saveNewUser()
+  {
+
+    this.showMsg = false;
 this.createLoadingCtrl();
     var goupId = this.groupService.groupId;
        var userName = this.userName
@@ -51,7 +64,7 @@ this.createLoadingCtrl();
     this.displayMsg("Error in adding the user to the group.");
     this.dismissLoader();
    });
-    }
+  }
 
     public displayMsg(msg)
     {
@@ -72,4 +85,11 @@ this.createLoadingCtrl();
     {
         this.loader.dismiss();
     }
+
+    public valuechange(newvalue){
+        if(newvalue.trim().length>0)
+        {
+          this.showMsg = false;
+        }
+      }
 }

@@ -8,11 +8,16 @@
                             <ion-label>Username</ion-label>
                             <ion-input type="text" formControlName="userName"> </ion-input>
                     </ion-item>
+                    <div class="alert alert-danger" *ngIf="this.login_Form.controls.userName.hasError('required') && login_Form.controls.userName.dirty">
+                    Please provide a valid UserName
+                    </div>
                     <ion-item>
                             <ion-label>Password</ion-label>
                             <ion-input type="password" formControlName="Password"> </ion-input>
-                            <pre>Touched? {{ login_Form.controls.Password.touched }}</pre>
-                        </ion-item>
+                        </ion-item>    
+                        <div class="alert alert-danger" *ngIf="this.login_Form.controls.Password.hasError('required') && login_Form.controls.Password.dirty">
+                            Please provide a valid Password
+                            </div>                    
                 </ion-list>
             </ion-col>
         </ion-row>
