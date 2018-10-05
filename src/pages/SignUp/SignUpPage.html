@@ -20,7 +20,7 @@
                             </div>
                         <ion-item>
                             <ion-label >EmailId</ion-label>
-                            <ion-input type="text" formControlName="emailId"> </ion-input>
+                            <ion-input type="text" formControlName="emailId" (ngModelChange)="valuechange($event)"> </ion-input>
                     </ion-item>
                     <div class="alert alert-danger" *ngIf="this.validation_Form.controls.emailId.hasError('required') && validation_Form.controls.emailId.dirty">
                         Please provide a valid emailId
@@ -42,5 +42,8 @@
         </ion-row>
     </div>
     </form>
+    <ion-item *ngIf="showMsg">
+        <ion-label>{{submitMsg}} </ion-label>
+      </ion-item>  
 </ion-content>
 
