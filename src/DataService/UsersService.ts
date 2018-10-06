@@ -3,6 +3,7 @@ import {Http,HttpModule, RequestOptions,Headers} from '../../node_modules/@angul
 import {HttpHeaders} from '../../node_modules/@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {User} from '../DataModels/Users';
+import {environment} from '../environment/environment';
 
 @Injectable()
 export class UserService{
@@ -15,6 +16,8 @@ constructor(private http:Http)
 
 addUserapi(user : User):Observable<any>
 {
+  var url = environment.dataApiUrl;
+  var endpoint = url + 'users';
   const httpOptions = {
     headers: new Headers({
       'Content-Type':  'application/json'
@@ -22,7 +25,7 @@ addUserapi(user : User):Observable<any>
   };
   let userToAdd = {firstName: user.firstName,lastName: user.lastName,email:user.email,password: user.password};
 
-  return  this.server.post('https://remindly.herokuapp.com/users', userToAdd,httpOptions);
+  return  this.server.post(endpoint, userToAdd,httpOptions);
 }
 
 }
