@@ -24,7 +24,7 @@ export class AddProductsPage  implements OnInit{
  products:Observable<Array<any>>;
   constructor(public navCtrl: NavController,public productService:ProductService,
               public authService: AuthService,public loadingCtrl: LoadingController) {     
-   this.user = this.authService.getUserDetails();         
+           
   }
 
   public ngOnInit()
@@ -54,24 +54,25 @@ public saveProduct()
 {
   this.showMsg = false;
   this.createLoadingCtrl();
-  var userId = this.user.userId;
-let prod = new Product();
-prod.productName = this.productName;
-prod.nextVisit = '0';
-prod.userId = userId;
-  this.productService.addProductapi(prod).subscribe((value)=>{         
-    let obj = JSON.parse(value._body);
-    this.displayMsg("Product has been added successfully");
-    this.dismissLoader();
-  },
-  err => {
-    let msg = err._body;
-    if (msg.includes("duplicate key found")){
-    this.displayMsg("Error in adding the product");
-    this.dismissLoader();
-   }        
-  }
-);
+   this.authService.getUserDetails().then((user:User) => {
+    let prod = new Product();
+    prod.productName = this.productName;
+    prod.nextVisit = '0';
+    prod.userId = user.userId;
+      this.productService.addProductapi(prod).subscribe((value)=>{         
+        let obj = JSON.parse(value._body);
+        this.displayMsg("Product has been added successfully");
+        this.dismissLoader();
+      },
+      err => {
+        let msg = err._body;
+        if (msg.includes("duplicate key found")){
+        this.displayMsg("Error in adding the product");
+        this.dismissLoader();
+       }        
+      }
+    );
+   }); 
 }
 
   public displayMsg(msg)

@@ -16,6 +16,7 @@ import {GroupProductsPage} from '../pages/GroupProducts/GroupProductsPage';
 import {GroupNextVisitPage} from '../pages/GroupNextVisit/GroupNextVisit';
 import {AddGroupProductsPage} from '../pages/AddGroupProducts/AddGroupProducts';
 import {LogOutPage} from '../pages/LogOut/LogOutPage';
+import {SplashPage} from '../pages/Splash/SplashPage';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +24,7 @@ import {LogOutPage} from '../pages/LogOut/LogOutPage';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   //rootPage: any = HomePage;
-  rootPage: any = LoginPage;
+  rootPage: any = SplashPage;
 
   pages: Array<{ title: string, component: any, value: string }>;
 

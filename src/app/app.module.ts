@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import {IonicStorageModule,Storage} from '@ionic/Storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -21,7 +22,6 @@ import {GroupService} from '../DataService/GroupsService';
 import {UserService} from '../DataService/UsersService';
 import {HttpModule, Http} from '../../node_modules/@angular/http';
 import {AuthService ,MAP_SERVICE_BASE_URL} from '../DataService/AuthService';
-import {Storage, IonicStorageModule} from '@ionic/storage';
 import {Groupspage} from '../pages/Groups/GroupsPage';
 import {environment} from '../environment/environment';
 import {AddGroupProductsPage} from '../pages/AddGroupProducts/AddGroupProducts';
@@ -88,10 +88,10 @@ import {LogOutPage} from '../pages/LogOut/LogOutPage';
       return environment.dataApiUrl
     }},
     {provide:AuthService,useClass:AuthService,
-    deps:[Http,MAP_SERVICE_BASE_URL]},
+    deps:[Http,Storage,MAP_SERVICE_BASE_URL]},
     {provide:GroupService,useClass:GroupService},
     {provide:GroupProductService,useClass:GroupProductService},
-    {provide:UserGroupService,useClass:UserGroupService}    
+    {provide:UserGroupService,useClass:UserGroupService}      
   ]
 })
 export class AppModule {}

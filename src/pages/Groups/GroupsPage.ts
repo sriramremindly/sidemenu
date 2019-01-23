@@ -16,21 +16,26 @@ export class Groupspage implements OnInit {
     user : User;
     constructor(public navCtrl: NavController, public groupService: GroupService,
                 public menuService: MenuService, public authService:AuthService) {
-    this.user = this.authService.getUserDetails();
+
         }
 
   public ngOnInit() {
-       let userId = this.user.userId;
-        this.groupService.getGroupsApi(userId).subscribe((value) => {
-            let data = JSON.parse(value._body);
-            let obj = data.message;
-            this.groups = obj.map(val => {
-                 return {groupName:val.groupName,groupId:val._id}; 
-             })
-        },
-            err => {
+    var self = this
+    this.authService.getUserDetails().then((user:User) => {
+    self.user=user;
+    let userId = this.user.userId;
+    this.groupService.getGroupsApi(userId).subscribe((value) => {
+        let data = JSON.parse(value._body);
+        let obj = data.message;
+        this.groups = obj.map(val => {
+             return {groupName:val.groupName,groupId:val._id}; 
+         })
+    },
+        err => {
 
-            })
+        })
+    });
+
     }
 
     public displayGroupDetails(group:any)

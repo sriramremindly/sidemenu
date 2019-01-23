@@ -21,7 +21,7 @@ export class NextVisitPage  implements OnInit{
  products: Array<any>;
   constructor(public navCtrl: NavController,public productService:ProductService,
     public authService:AuthService,public loadingCtrl: LoadingController) {     
-    this.user = this.authService.getUserDetails();
+    this.user = this.authService.user;
   }
 
   public ngOnInit()

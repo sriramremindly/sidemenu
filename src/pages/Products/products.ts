@@ -25,12 +25,14 @@ export class ProductsPage  implements OnInit{
   constructor(public navCtrl: NavController,public productService:ProductService,
     public modalctrl: ModalController, public authService:AuthService,
     public loadingCtrl: LoadingController) {     
-   this.user = this.authService.getUserDetails();
   }
 
   public ngOnInit()
   {
-    var userId = this.user.userId;
+    var self = this;
+    this.authService.getUserDetails().then((user:User) => {
+      self.user = user;
+    var userId = user.userId;
     this.productService.getProductsListapi(userId).subscribe((value) =>{
       let data = JSON.parse(value._body);
       let obj = data.message;
@@ -39,6 +41,7 @@ export class ProductsPage  implements OnInit{
             return {productName:val.productName,nextVisit:nextvisit,prodId:val._id,userId:val.userId}; 
         })
       })  
+    });
   }
 
   public updateItem(product:Product) { 
