@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { FormGroup,FormControl,FormBuilder, Validators } from '@angular/forms';
 import {User} from '../../DataModels/Users';
 import {UserService} from '../../DataService/UsersService';
-import {Storage} from '@ionic/storage';
+import {Storage} from '@ionic/Storage';
 import {NavController,LoadingController} from 'ionic-angular';
 import {HomePage} from '../home/home';
 
